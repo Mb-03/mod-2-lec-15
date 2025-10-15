@@ -1,23 +1,25 @@
-import { useRef } from "react";
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 
 const App = () => {
-  const [displayScore, setDisplayScore] = useState(0);
-  const scoreRef = useRef(0);
+  const scrollRef = useRef(null);
 
-  const handleCorrectAnswer = () => {
-    scoreRef.current++;
-  };
-
-  const finishQuiz = () => {
-    setDisplayScore(scoreRef.current);
-  };
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <div>
-      <h2>Score : {displayScore}</h2>
-      <button onClick={handleCorrectAnswer}>Correct Answer</button>
-      <button onClick={finishQuiz}>Finish Quiz</button>
+      <h2 className="title">Auto Scroll Example</h2>
+      <div className="section top-section">
+        <h3>Scroll Down Autamotically</h3>
+      </div>
+
+      <div ref={scrollRef} className="section target-section">
+        <h2>You Landed Here</h2>
+      </div>
+      <div className="section">Another Section</div>
     </div>
   );
 };
